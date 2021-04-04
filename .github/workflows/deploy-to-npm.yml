@@ -11,6 +11,8 @@ jobs:
         with:
           node-version: 10
       - run: npm install
+      - run: git config user.email "xdanradu@yahoo.com.com"
+      - run: git config user.name "automation"
       - run: npm version
       - run: git add .
       - run: git commit -m "version++"
