@@ -1,12 +1,11 @@
 {
   "name": "bits-utils",
-  "version": "1.0.13",
+  "version": "1.0.7",
   "description": "",
   "main": "index.js",
   "scripts": {
     "run": "node index.js",
     "prettier": "prettier --config ./.prettierrc --list-different \"**/*{.html,.js,.json,.css}\" --write",
-    "increase-version": "npm version patch && git commit -am \"Version++\" && git push",
     "publish-to-npm": "npm publish --access public"
   },
   "devDependencies": {
