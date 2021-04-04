@@ -6,7 +6,7 @@
   "scripts": {
     "run": "node index.js",
     "prettier": "prettier --config ./.prettierrc --list-different \"**/*{.html,.js,.json,.css}\" --write",
-    "build-bundle": "npm run build-bundle",
+    "build-bundle": "echo 'all is well'",
     "publish-to-npm": "npm publish --access public"
   },
   "devDependencies": {
