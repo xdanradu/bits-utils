@@ -13,10 +13,11 @@ jobs:
       - run: npm install
       - run: git config user.email "xdanradu@yahoo.com.com"
       - run: git config user.name "automation"
+      - run: git checkout master
       - run: npm version patch
       - run: git add .
       - run: git commit -m "version++"
-      - run: git status
+      - run: git push
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
