@@ -16,7 +16,6 @@ jobs:
       - run: git checkout master
       - run: git add .
       - run: git commit -m "prepare for version increase"
-      - run: git remote add origin https://github.com/xdanradu/bits-utils.git
       - run: git push -set-upstream origin master
       - run: npm version patch
       - run: git add .
