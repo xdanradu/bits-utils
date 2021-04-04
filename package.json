@@ -6,11 +6,12 @@
   "scripts": {
     "run": "node index.js",
     "prettier": "prettier --config ./.prettierrc --list-different \"**/*{.html,.js,.json,.css}\" --write",
-    "build-bundle": "echo 'all is well'",
+    "increase-version": "npm version patch && git add *; && git commit -m \"Version++\" && git push",
     "publish-to-npm": "npm publish --access public"
   },
   "devDependencies": {
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "version": "^0.1.2"
   },
   "author": "",
   "license": "ISC"
