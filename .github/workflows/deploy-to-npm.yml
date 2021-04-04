@@ -16,11 +16,11 @@ jobs:
       - run: git checkout master
       - run: git add .
       - run: git commit -m "prepare for version increase"
-      - run: git push -set-upstream origin master
+      - run: git push origin master
       - run: npm version patch
       - run: git add .
       - run: git commit -m "version++"
-      - run: git push -set-upstream origin master
+      - run: git push origin master
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
