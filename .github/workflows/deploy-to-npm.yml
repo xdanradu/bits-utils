@@ -14,6 +14,8 @@ jobs:
       - run: git config user.email "xdanradu@yahoo.com.com"
       - run: git config user.name "automation"
       - run: git checkout master
+      - run: git add .
+      - run: git commit -m "version++"
       - run: npm version patch
       - run: git add .
       - run: git commit -m "version++"
