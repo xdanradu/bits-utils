@@ -8,6 +8,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10
+          repo-token: ${{ secrets.WORKFLOW_TOKEN }}
       - run: npm install
       - run: npm version
       - run: git add .
