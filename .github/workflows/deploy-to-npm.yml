@@ -15,7 +15,8 @@ jobs:
       - run: git config user.name "automation"
       - run: git checkout master
       - run: git add .
-      - run: git commit -m "version++"
+      - run: git commit -m "prepare for version increase"
+      - run: git push
       - run: npm version patch
       - run: git add .
       - run: git commit -m "version++"
