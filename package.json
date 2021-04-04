@@ -9,8 +9,7 @@
     "publish-to-npm": "npm publish --access public"
   },
   "devDependencies": {
-    "prettier": "^2.0.2",
-    "version": "^0.1.2"
+    "prettier": "^2.0.2"
   },
   "author": "",
   "license": "ISC"

@@ -3,21 +3,23 @@ function readBit(buffer, i, bit) {
 }
 
 function setBit(buffer, i, bit, value) {
-  if(value == 0) {
+  if (value == 0) {
     buffer[i] &= ~(1 << bit);
-  } else{
-    buffer[i] |= (1 << bit);
+  } else {
+    buffer[i] |= 1 << bit;
   }
 }
 
 function countDistinctASCIISymbols(text) {
   let counter = Array(256).fill(0);
 
-  for (let i=0; i< text.length; i++) {
+  for (let i = 0; i < text.length; i++) {
     counter[text[i].charCodeAt(0)]++;
   }
 
-  return counter.map((el,index) => { return {symbol: String.fromCharCode(index), count: el } });
+  return counter.map((el, index) => {
+    return { symbol: String.fromCharCode(index), count: el };
+  });
 }
 
 function getSize(bytes, decimals = 2) {
@@ -34,4 +36,4 @@ module.exports = {
   setBit,
   countDistinctASCIISymbols,
   getSize
-}
+};
