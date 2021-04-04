@@ -11,16 +11,6 @@ jobs:
         with:
           node-version: 10
       - run: npm install
-      - run: git config user.email "xdanradu@yahoo.com.com"
-      - run: git config user.name "automation"
-      - run: git checkout master
-      - run: git add .
-      - run: git commit -m "prepare for version increase"
-      - run: git push origin master
-      - run: npm version patch
-      - run: git add .
-      - run: git commit -m "version++"
-      - run: git push origin master
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
