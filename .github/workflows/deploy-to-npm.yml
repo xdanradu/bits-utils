@@ -16,7 +16,7 @@ jobs:
       - run: npm version
       - run: git add .
       - run: git commit -m "version++"
-      - run: git push
+      - run: git status
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
