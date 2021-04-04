@@ -16,11 +16,12 @@ jobs:
       - run: git checkout master
       - run: git add .
       - run: git commit -m "prepare for version increase"
-      - run: git push
+      - run: git remote add origin https://github.com/xdanradu/bits-utils.git
+      - run: git push -set-upstream origin master
       - run: npm version patch
       - run: git add .
       - run: git commit -m "version++"
-      - run: git push
+      - run: git push -set-upstream origin master
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
