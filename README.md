@@ -1,4 +1,4 @@
-# Bits handling utilities
+# Bit handling utilities for data compression
 
 ```js
 
