@@ -66,6 +66,7 @@ function runTests() {
     //assert.isEqual('2 decompress\t\t\t', dec, dt);
 
     const bigText = lib.loadTextFile('LICENSE.txt');
+
     const c = lib.countASCIISymbols(bigText);
     const a = lib.getAlphabet(c);
     const cl = lib.getFixedCodeLengthInBits(c);
@@ -75,7 +76,7 @@ function runTests() {
 
     assert.isEqual('3 decompress\t\t\t', unzipped, bigText);
     // console.log(bigText);
-    console.log(unzipped)
+    // console.log(unzipped)
 
 }
 

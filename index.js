@@ -124,9 +124,6 @@ function getSymbolForCode(codes, code) {
 }
 
 function decompress(compressed) {
-  console.log(compressed.binaryData);
-  console.log(printBuffer(compressed));
-
   let result = '';
 
   let bufferIndex = 0;
@@ -149,6 +146,7 @@ function decompress(compressed) {
     bitIndex++;
   }
 
+  console.log(result);
   return result;
 
 }
