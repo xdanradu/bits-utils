@@ -188,6 +188,14 @@ function test() {
 }
  */
 
+function compressUsingFixedCodes(data) {
+  const symbols = countASCIISymbols(data);
+  const alphabet = getAlphabet(symbols);
+  const codeLength = getFixedCodeLengthInBits(symbols);
+  const codes = getSymbolsBitCodes(alphabet, codeLength)
+  return compress(data, codes, codeLength);
+}
+
 
 
 module.exports = {
@@ -203,5 +211,6 @@ module.exports = {
   getAlphabet,
   getFixedCodeLengthInBits,
   decompress,
-  loadTextFile
+  loadTextFile,
+  compressUsingFixedCodes
 };
