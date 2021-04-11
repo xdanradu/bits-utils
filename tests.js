@@ -51,37 +51,32 @@ function runTests() {
     // console.log(compressed);
     assert.isEqual('1 compress\t\t\t', compressed.binaryData[0], 138);
 
-
     console.log(chalk.whiteBright('\ndecompress'));
-    //const decompressed = lib.decompress(compressed);
-    //assert.isEqual('1 decompress\t\t\t', decompressed, data);
+    const decompressed = lib.decompress(compressed);
+    assert.isEqual('1 decompress\t\t\t', decompressed, data);
 
     const dt = 'ABCD';
     const cnt = lib.countASCIISymbols(dt);
     const alph = lib.getAlphabet(cnt);
     const codesLen = lib.getFixedCodeLengthInBits(cnt);
     const cods = lib.getSymbolsBitCodes(alph, codesLength)
-    // const cmp = lib.compress(dt, cods, codesLen);
-    //const dec = lib.decompress(cmp);
-    //assert.isEqual('2 decompress\t\t\t', dec, dt);
+    const cmp = lib.compress(dt, cods, codesLen);
+    const dec = lib.decompress(cmp);
+    assert.isEqual('2 decompress\t\t\t', dec, dt);
 
     const bigText = lib.loadTextFile('LICENSE.txt');
-
     const c = lib.countASCIISymbols(bigText);
     const a = lib.getAlphabet(c);
     const cl = lib.getFixedCodeLengthInBits(c);
     const cs = lib.getSymbolsBitCodes(a, cl)
-    const shrink = lib.compress(bigText, cs, cl);
-    const unzipped = lib.decompress(shrink);
+
+    const shrinked = lib.compress(bigText, cs, cl);
+    const unzipped = lib.decompress(shrinked);
+
 
     assert.isEqual('3 decompress\t\t\t', unzipped, bigText);
     // console.log(bigText);
     // console.log(unzipped)
-
 }
 
 runTests();
-
-module.exports = {
-    runTests
-};

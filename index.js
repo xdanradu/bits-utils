@@ -99,15 +99,14 @@ function compress(data, codes, codeLengthInBits) {
   for(let i=0; i<data.length;i++) {
       let symbol = data[i];
       let code = getSymbolCode(symbol, codes);
-      // console.log(symbol + ':' + code);
       for(let j=0;j<code.length;j++){
         setBit(binaryData, bufferIndex, bitIndex, parseInt(code[j]));
-
-        if(bitIndex === 7) {
+        bitIndex++;
+        if(bitIndex === 8) {
           bitIndex = 0;
           bufferIndex++;
         }
-        bitIndex++;
+
       }
   }
   const unusedBits = totalBits - dataBits;
@@ -139,21 +138,19 @@ function decompress(compressed) {
       currentCode = '';
     }
 
-    if(bitIndex === 7) {
+    bitIndex++;
+    if(bitIndex === 8) {
       bitIndex = 0;
       bufferIndex++;
     }
-    bitIndex++;
-  }
 
-  console.log(result);
+  }
   return result;
 
 }
 
-
 function getSymbolCode(symbol, codes) {
-  for(let i=0;i<codes.length;i++){
+  for(let i=0;i<codes.length;i++) {
     if (symbol === codes[i].symbol) return codes[i].code;
   }
   return null;
@@ -162,7 +159,7 @@ function getSymbolCode(symbol, codes) {
 function getChunk(buffers, index) {
   let bits = '';
   for (let i=0;i<8;i++) {
-    bits+=readBit(buffers, index, i);
+    bits += readBit(buffers, index, i);
   }
   return bits;
 }
@@ -171,7 +168,6 @@ function printBuffer(buffers) {
   let result = '';
   for (let i =0; i<buffers.length;i++) {
     result += getChunk(buffers, i);
-    result += (buffers.length>0 && i < buffers.length - 1? ' ': '');
   }
   return result;
 }
@@ -190,7 +186,6 @@ function test() {
   console.log(getBits(buffers, 0));
 
 }
-
  */
 
 
