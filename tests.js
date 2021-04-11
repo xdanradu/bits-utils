@@ -48,7 +48,7 @@ function runTests() {
     console.log(chalk.whiteBright('\ncompress'));
     let dataCodes = lib.getSymbolsBitCodes(alphabet, codesLength);
     let compressed = lib.compress(data, dataCodes, codesLength);
-    // console.log(compressed);
+    console.log(compressed.codes);
     assert.isEqual('1 compress\t\t\t', compressed.binaryData[0], 138);
 
     console.log(chalk.whiteBright('\ndecompress'));
@@ -65,8 +65,8 @@ function runTests() {
     assert.isEqual('2 decompress\t\t\t', dec, dt);
 
     const bigText = lib.loadTextFile('LICENSE.txt');
-    const shrinked = lib.compressUsingFixedCodes(bigText);
-    const unzipped = lib.decompress(shrinked);
+    const shrunk = lib.compressUsingFixedCodes(bigText);
+    const unzipped = lib.decompress(shrunk);
     assert.isEqual('3 decompress\t\t\t', unzipped, bigText);
 }
 

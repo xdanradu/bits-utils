@@ -110,13 +110,19 @@ function compress(data, codes, codeLengthInBits) {
       }
   }
   const unusedBits = totalBits - dataBits;
-  return { binaryData, codes, numberOf8BitChunks, codeLengthInBits, totalBits, dataBits, unusedBits  };
+
+  const simpleCodes = [];
+  // to be refactored
+  for (let j=0;j<codes.length;j++) {
+    simpleCodes[j] = {s: codes[j].symbol, c: codes[j].code}
+  }
+  return { binaryData, codes: simpleCodes, numberOf8BitChunks, codeLengthInBits, totalBits, dataBits, unusedBits  };
 }
 
 function getSymbolForCode(codes, code) {
   for (let i=0;i<codes.length;i++) {
-    if (codes[i].code === code) {
-      return codes[i].symbol;
+    if (codes[i].c === code) {
+      return codes[i].s;
     }
   }
   return null;
