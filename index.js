@@ -45,48 +45,12 @@ function getAlphabet(symbols) {
   return symbols.filter(el => el.count > 0).sort((a, b) => b.count - a.count);
 };
 
-/*
-prepareForCompression(loadTextFile('LICENSE.txt'));
-function prepareForCompression(data) {
-  console.log(
-      `Initial file size using ASCII encoding on 8 bit: ${getSize(data.length * 8, 0)}`
-  );
-  const symbols = countASCIISymbols(data);
-  const usedSymbols = 256 - symbols.filter(el => el.count === 0).length;
-  console.log(`Only ${usedSymbols} from 256 ASCII characters are required for this text file`);
-
-  let fixedCodeLength = usedSymbols.toString(2).length;
-  console.log(
-      `Fixed length codes compression on ${fixedCodeLength} bits can be used to compress the file to: 
-      ${getSize(data.length * fixedCodeLength, 0)}  + ${getSize(usedSymbols * 8)} fixed codes`
-  );
-
-  const alphabet = symbols.filter(el => el.count > 0).sort((a, b) => b.count - a.count);
-  // console.log(alphabet); //descending sort
-
-  const totalNumberOfBits = data.length * fixedCodeLength;
-  // console.log(`Before compression the file requires ${totalNumberOfBits * 8} space. After compression the file will be ${totalNumberOfBits * 5} bits long.`);
-  // const numberOf8BitBuffers = ( usedSymbols * fixedCodeLength ) / 8;
-  // console.log(numberOf8BitBuffers);
-  const codes = getSymbolsBitCodes(alphabet, fixedCodeLength);
-  let compressed = compress(data, codes, fixedCodeLength);
-  // console.log(compressed);
-  // const reducer = (accumulator, currentValue) => accumulator + currentValue.code;
-  // console.log(codes.reduce(reducer));
-  // console.log(codes.filter(el => el.symbol === 'A')[0].code+codes.filter(el => el.symbol === ' ')[0].code);
-  // printBuffer(compressed.binaryData);
-  console.log(compressed);
-return compressed;
-
-}
- */
-
 function getSymbolsBitCodes(alphabet, numBits) {
-  let codes = Array();
+  let codesHash = new Map();
   for(let i=0;i<alphabet.length;i++) {
-      codes.push({id: i, symbol: alphabet[i].symbol, code: (i).toString(2).padStart(numBits, '0'), count: alphabet[i].count})
+    codesHash.set(alphabet[i].symbol, (i).toString(2).padStart(numBits, '0'));
   }
-  return codes;
+  return codesHash;
 }
 
 function compress(data, codes, codeLengthInBits) {
@@ -98,7 +62,7 @@ function compress(data, codes, codeLengthInBits) {
   let bitIndex = 0;
   for(let i=0; i<data.length;i++) {
       let symbol = data[i];
-      let code = getSymbolCode(symbol, codes);
+      let code = codes.get(symbol);
       for(let j=0;j<code.length;j++){
         setBit(binaryData, bufferIndex, bitIndex, parseInt(code[j]));
         bitIndex++;
@@ -111,15 +75,11 @@ function compress(data, codes, codeLengthInBits) {
   }
   const unusedBits = totalBits - dataBits;
 
-  const simpleCodes = [];
-  // to be refactored
-  for (let j=0;j<codes.length;j++) {
-    simpleCodes[j] = {s: codes[j].symbol, c: codes[j].code}
-  }
-  return { binaryData, codes: simpleCodes, numberOf8BitChunks, codeLengthInBits, totalBits, dataBits, unusedBits  };
+  return { binaryData, codes, numberOf8BitChunks, codeLengthInBits, totalBits, dataBits, unusedBits  };
 }
 
 function getSymbolForCode(codes, code) {
+  return Object.keys(codes).find(key => codes[key] === val);
   for (let i=0;i<codes.length;i++) {
     if (codes[i].c === code) {
       return codes[i].s;
@@ -131,6 +91,10 @@ function getSymbolForCode(codes, code) {
 function decompress(compressed) {
   let result = '';
 
+  const invertedCodes = new Map([...compressed.codes.entries()].map(
+      ([key, value]) => ([value, key]))
+  );
+
   let bufferIndex = 0;
   let bitIndex = 0;
   let currentCode ='';
@@ -138,8 +102,7 @@ function decompress(compressed) {
     currentCode += readBit(compressed.binaryData, bufferIndex, bitIndex);
 
     if (currentCode.length === compressed.codeLengthInBits){
-      // console.log(currentCode)
-      result += getSymbolForCode(compressed.codes, currentCode);
+      result += invertedCodes.get(currentCode)
 
       currentCode = '';
     }
@@ -156,6 +119,7 @@ function decompress(compressed) {
 }
 
 function getSymbolCode(symbol, codes) {
+  console.log(codes.get(symbol));
   for(let i=0;i<codes.length;i++) {
     if (symbol === codes[i].symbol) return codes[i].code;
   }
@@ -177,22 +141,6 @@ function printBuffer(buffers) {
   }
   return result;
 }
-
-
-/*
-function test() {
-  let buffers = new Uint8Array(1);
-  setBit(buffers, 0, 0, 1)
-  setBit(buffers, 0, 1, 0)
-  setBit(buffers, 0, 2, 1)
-
-  console.log(
-      readBit(buffers, 0, 0),  readBit(buffers, 0, 1),  readBit(buffers, 0, 2)
-  );
-  console.log(getBits(buffers, 0));
-
-}
- */
 
 function compressUsingFixedCodes(data) {
   const symbols = countASCIISymbols(data);
