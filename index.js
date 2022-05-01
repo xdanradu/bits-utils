@@ -44,7 +44,7 @@ function getFixedCodeLengthInBits(asciiCounter) {
 
 function getAlphabet(symbols) {
   return symbols.filter(el => el.count > 0).sort((a, b) => b.count - a.count);
-};
+}
 
 function getSymbolsBitCodes(alphabet, numBits) {
   let codesHash = new Map();
