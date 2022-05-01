@@ -28,3 +28,5 @@ netstat -ano | findStr "4200"
 ```bash
 Taskkill /PID 25740 /F
 ```
+
+git config --global --add url."git@github.com:".insteadOf "https://github.com/"

@@ -41,6 +41,7 @@ function getFixedCodeLengthInBits(asciiCounter) {
   const usedSymbols = asciiCounter.filter(el => el.count > 0).length;
   return usedSymbols.toString(2).length;
 }
+
 function getAlphabet(symbols) {
   return symbols.filter(el => el.count > 0).sort((a, b) => b.count - a.count);
 };
