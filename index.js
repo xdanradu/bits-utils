@@ -1,5 +1,5 @@
 let fs = require('fs');
-// sending buffer by reference is not good practice
+// sending buffer by reference is not a good practice
 function readBit(buffer, i, bit) {
   return (buffer[i] >> bit) % 2;
 }
@@ -149,8 +149,6 @@ function compressUsingFixedCodes(data) {
   const codes = getSymbolsBitCodes(alphabet, codeLength)
   return compress(data, codes, codeLength);
 }
-
-
 
 module.exports = {
   readBit,
